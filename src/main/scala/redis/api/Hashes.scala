@@ -77,7 +77,7 @@ case class Hmget[K, KK, R](key: K, fields: Seq[KK])(implicit redisKey: ByteStrin
   def decodeReply(mb: MultiBulk) = MultiBulkConverter.toSeqOptionByteString(mb)
 }
 
-case class Hmset[K, KK, V](key: K, keysValues: Map[KK, V])(implicit redisKey: ByteStringSerializer[K], redisFields: ByteStringSerializer[KK], convert: ByteStringSerializer[V])
+case class Hmset[K, KK, V](key: K, keysValues: scala.collection.Map[KK, V])(implicit redisKey: ByteStringSerializer[K], redisFields: ByteStringSerializer[KK], convert: ByteStringSerializer[V])
   extends SimpleClusterKey[K] with RedisCommandStatusBoolean {
   val isMasterOnly = true
   val encodedRequest: ByteString = encode("HMSET", keyAsString +: keysValues.foldLeft(Seq.empty[ByteString])({

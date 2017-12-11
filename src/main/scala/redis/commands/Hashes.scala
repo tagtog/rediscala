@@ -34,7 +34,7 @@ trait Hashes extends Request {
   def hmget[R: ByteStringDeserializer](key: String, fields: String*): Future[Seq[Option[R]]] =
     send(Hmget(key, fields))
 
-  def hmset[V: ByteStringSerializer](key: String, keysValues: Map[String, V]): Future[Boolean] =
+  def hmset[V: ByteStringSerializer](key: String, keysValues: collection.Map[String, V]): Future[Boolean] =
     send(Hmset(key, keysValues))
 
   def hset[V: ByteStringSerializer](key: String, field: String, value: V): Future[Boolean] =
